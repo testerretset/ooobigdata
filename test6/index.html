@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+<section>
+    <button>Click me</button>
+    <button id="fixed">Click fixed</button>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" type="text/javascript"></script>
+
+<script>
+
+    const users = {
+        data: [
+            {name: 'John Smith'},
+            {name: 'Ellen Simons'}
+        ],
+
+        showFirst: function (event) {
+            console.log(this.data[0].name);
+        }
+    }
+    $('button:not(#fixed)').click(users.showFirst); //тут мы "отлавливаем значение click, на кнопке, и указываем на коллбек showFirst
+    /*
+    Протестил, вывело вот что:
+    TypeError: Cannot read properties of undefined (reading '0')
+    at HTMLButtonElement.showFirst (index.html:34:34)
+    at HTMLButtonElement.dispatch (jquery-3.6.0.min.js:2:43064)
+    at v.handle (jquery-3.6.0.min.js:2:41048)
+     */
+
+    //Не знаю в чем тут подвох, но я сделал так и все сработало
+    $('button#fixed').click(function(event) {
+        users.showFirst(event); //в консоли выведет John Smith
+    });
+
+</script>
+
+</body>
+</html>
